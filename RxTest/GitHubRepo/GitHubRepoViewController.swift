@@ -12,7 +12,7 @@ import RxDataSources
 
 class GitHubRepoViewController: UITableViewController {
     
-    private var observable: MainObservable!
+    private var observable: GitHubObservable!
     
     private let search = UISearchController()
     private let disposeBag = DisposeBag()
@@ -35,7 +35,7 @@ class GitHubRepoViewController: UITableViewController {
             .text.orEmpty
             .asObservable()
         
-        self.observable = MainObservable(searchResult: searchObservable)
+        self.observable = GitHubObservable(searchResult: searchObservable)
         
         observable.searchResult?
             .drive(tableView.rx.items) { tableView, row, element in

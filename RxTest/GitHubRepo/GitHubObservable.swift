@@ -9,7 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class MainObservable {
+class GitHubObservable {
     
     var searchResult: Driver<[RepoInfo]>?
     
