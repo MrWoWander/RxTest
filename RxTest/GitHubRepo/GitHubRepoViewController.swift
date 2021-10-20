@@ -23,7 +23,8 @@ class GitHubRepoViewController: UITableViewController {
         self.title = "Main Screen"
         
         tableView.tableHeaderView = search.searchBar
-        tableView.register(UINib(nibName: "GitHubTableViewCell", bundle: nil), forCellReuseIdentifier: GitHubTableViewCell.idCell)
+        tableView.register(UINib(nibName: "GitHubTableViewCell", bundle: nil),
+                           forCellReuseIdentifier: GitHubTableViewCell.idCell)
         
         tableView.dataSource = nil
         
@@ -38,15 +39,12 @@ class GitHubRepoViewController: UITableViewController {
         self.observable = GitHubObservable(searchResult: searchObservable)
         
         observable.searchResult?
-            .drive(tableView.rx.items) { tableView, row, element in
-                let indexPath = IndexPath(row: row, section: 0)
+            .drive(tableView.rx.items(cellIdentifier: GitHubTableViewCell.idCell,
+                                      cellType: GitHubTableViewCell.self)) { _, repo, cell in
                 
-                let cell = tableView.dequeueReusableCell(withIdentifier: GitHubTableViewCell.idCell, for: indexPath) as! GitHubTableViewCell
-                print("1")
-                cell.nameLabel.text = element.nameRepo
-                cell.authorRepoLabel.text = element.authorRepo
+                cell.nameLabel.text = repo.nameRepo
+                cell.authorRepoLabel.text = repo.authorRepo
                 
-                return cell
             }.disposed(by: disposeBag)
         
         tableView.rx.itemSelected.subscribe {
