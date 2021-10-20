@@ -84,7 +84,6 @@ class RepoInfoViewController: UIViewController {
     
     
     func contentStack() {
-        
         let stack = UIStackView()
         stack.axis = .horizontal
         stack.alignment = .top
@@ -96,56 +95,51 @@ class RepoInfoViewController: UIViewController {
         stack.topAnchor.constraint(equalTo: self.authorStack.bottomAnchor, constant: 50).isActive = true
         stack.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20).isActive = true
         stack.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20).isActive = true
-        stack.bottomAnchor.constraint(lessThanOrEqualTo: self.view.bottomAnchor).isActive = true
         
         let contentLabel = UILabel()
         contentLabel.text = "Content:"
         contentLabel.textAlignment = .right
         contentLabel.font = .preferredFont(forTextStyle: .title3)
         
-        contentLabel.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 3).isActive = true
-        
         stack.addArrangedSubview(contentLabel)
-
+        
+        contentLabel.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.3).isActive = true
+        
         let scroll = UIScrollView()
         scroll.showsHorizontalScrollIndicator = false
+        stack.translatesAutoresizingMaskIntoConstraints = false
         
         stack.addArrangedSubview(scroll)
-
+        
+        scroll.trailingAnchor.constraint(equalTo: stack.trailingAnchor).isActive = true
+        scroll.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.7).isActive = true
+        
         let verticalStack = UIStackView()
         verticalStack.axis = .vertical
-//        verticalStack.spacing = 10
-
+        verticalStack.spacing = 10
+        
         verticalStack.translatesAutoresizingMaskIntoConstraints = false
         
         scroll.addSubview(verticalStack)
         
         verticalStack.topAnchor.constraint(equalTo: scroll.topAnchor).isActive = true
         verticalStack.leadingAnchor.constraint(equalTo: scroll.leadingAnchor).isActive = true
-        verticalStack.trailingAnchor.constraint(equalTo: scroll.trailingAnchor).isActive = true
+        verticalStack.trailingAnchor.constraint(equalTo: stack.trailingAnchor).isActive = true
         verticalStack.bottomAnchor.constraint(equalTo: scroll.bottomAnchor).isActive = true
-//        verticalStack.widthAnchor.constraint(equalTo: scroll.widthAnchor).isActive = true
-
-        for i in 1...100 {
-            let contentLabel = UILabel()
-            contentLabel.text = String(i)
-
-            verticalStack.addArrangedSubview(contentLabel)
-        }
         
-
-//        let observable = RepInfoObservable(repoInfo)
-//
-//        observable.getContent().subscribe(onSuccess: { repContnets in
-//            repContnets.forEach {
-//                let contentLabel = UILabel()
-//                contentLabel.text = String($0.name)
-//
-//                verticalStack.addArrangedSubview(contentLabel)
-//
-//            }
-//
-//        }).disposed(by: dispose)
+        let observable = RepInfoObservable(repoInfo)
+        
+        observable.getContent().subscribe(onSuccess: { repContent in
+            repContent.forEach {
+                let contentLabel = UILabel()
+                contentLabel.text = String($0.name)
+                contentLabel.numberOfLines = 2
+                
+                verticalStack.addArrangedSubview(contentLabel)
+                
+            }
+            
+        }).disposed(by: dispose)
     }
 }
 
@@ -171,7 +165,7 @@ extension RepoInfoViewController {
         authorStack.topAnchor.constraint(equalTo: self.nameLabel.bottomAnchor, constant: 2).isActive = true
         authorStack.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
-
+    
     private func authorImageViewLayout() {
         authorImage.widthAnchor.constraint(equalToConstant: 35).isActive = true
         authorImage.heightAnchor.constraint(equalToConstant: 35).isActive = true
