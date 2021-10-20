@@ -58,16 +58,14 @@ class RepoInfoViewController: UIViewController {
         authorStack.addArrangedSubview(authorImage)
         authorStack.addArrangedSubview(authorLabel)
         
-        
         let activityIndicator = UIActivityIndicatorView()
         activityIndicator.style = .medium
-        activityIndicator.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        activityIndicator.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        activityIndicator.heightAnchor.constraint(equalToConstant: 35).isActive = true
+        activityIndicator.widthAnchor.constraint(equalToConstant: 35).isActive = true
         
         authorStack.insertArrangedSubview(activityIndicator, at: 0)
         
         authorImage.set(imageURL: repoInfo.autorImage) {[weak self] in
-            
             activityIndicator.stopAnimating()
             self?.authorImageViewLayout()
             self?.authorStack.removeArrangedSubview(activityIndicator)
@@ -105,8 +103,7 @@ extension RepoInfoViewController {
         authorStack.topAnchor.constraint(equalTo: self.nameLabel.bottomAnchor, constant: 2).isActive = true
         authorStack.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
-    
-    
+
     private func authorImageViewLayout() {
         authorImage.widthAnchor.constraint(equalToConstant: 35).isActive = true
         authorImage.heightAnchor.constraint(equalToConstant: 35).isActive = true
