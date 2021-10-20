@@ -18,7 +18,6 @@ class GitHubTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         
-        print("2")
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
