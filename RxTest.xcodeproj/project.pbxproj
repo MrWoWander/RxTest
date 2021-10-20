@@ -20,6 +20,8 @@
 		6DC57550272008F7009F3BA0 /* GitHubTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DC5754E272008F7009F3BA0 /* GitHubTableViewCell.swift */; };
 		6DC57551272008F7009F3BA0 /* GitHubTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6DC5754F272008F7009F3BA0 /* GitHubTableViewCell.xib */; };
 		6DC5755627200B97009F3BA0 /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 6DC5755527200B97009F3BA0 /* RxDataSources */; };
+		6DC5755927201C7A009F3BA0 /* RepoInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DC5755827201C7A009F3BA0 /* RepoInfoViewController.swift */; };
+		6DC5755B27203EDC009F3BA0 /* WebImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DC5755A27203EDC009F3BA0 /* WebImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +36,8 @@
 		6D5194AE271EE5BA006ACC60 /* GitHubObservable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubObservable.swift; sourceTree = "<group>"; };
 		6DC5754E272008F7009F3BA0 /* GitHubTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubTableViewCell.swift; sourceTree = "<group>"; };
 		6DC5754F272008F7009F3BA0 /* GitHubTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GitHubTableViewCell.xib; sourceTree = "<group>"; };
+		6DC5755827201C7A009F3BA0 /* RepoInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoInfoViewController.swift; sourceTree = "<group>"; };
+		6DC5755A27203EDC009F3BA0 /* WebImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +81,7 @@
 				6D519497271EB526006ACC60 /* Assets.xcassets */,
 				6D519499271EB526006ACC60 /* LaunchScreen.storyboard */,
 				6D51949C271EB526006ACC60 /* Info.plist */,
+				6DC5755A27203EDC009F3BA0 /* WebImageView.swift */,
 			);
 			path = RxTest;
 			sourceTree = "<group>";
@@ -104,6 +109,7 @@
 				6D5194AC271ECAAE006ACC60 /* GitHubModel.swift */,
 				6D5194AE271EE5BA006ACC60 /* GitHubObservable.swift */,
 				6DC5755327200901009F3BA0 /* Cell */,
+				6DC5755827201C7A009F3BA0 /* RepoInfoViewController.swift */,
 			);
 			path = GitHubRepo;
 			sourceTree = "<group>";
@@ -190,11 +196,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				6D5194AD271ECAAE006ACC60 /* GitHubModel.swift in Sources */,
+				6DC5755B27203EDC009F3BA0 /* WebImageView.swift in Sources */,
 				6D519493271EB525006ACC60 /* GitHubRepoViewController.swift in Sources */,
 				6DC57550272008F7009F3BA0 /* GitHubTableViewCell.swift in Sources */,
 				6D51948F271EB525006ACC60 /* AppDelegate.swift in Sources */,
 				6D519491271EB525006ACC60 /* SceneDelegate.swift in Sources */,
 				6D5194AF271EE5BA006ACC60 /* GitHubObservable.swift in Sources */,
+				6DC5755927201C7A009F3BA0 /* RepoInfoViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

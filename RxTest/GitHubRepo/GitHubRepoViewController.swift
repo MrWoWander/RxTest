@@ -8,7 +8,6 @@
 import UIKit
 import RxSwift
 import RxCocoa
-import RxDataSources
 
 class GitHubRepoViewController: UITableViewController {
     
@@ -17,10 +16,18 @@ class GitHubRepoViewController: UITableViewController {
     private let search = UISearchController()
     private let disposeBag = DisposeBag()
     
+    private var repoInfo: [RepoInfo]?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Main Screen"
+        self.title = "GitHub repository"
+        
+        let searchObservable = search.searchBar.rx
+            .text.orEmpty
+            .asObservable()
+        
+        self.observable = GitHubObservable(searchResult: searchObservable)
         
         tableView.tableHeaderView = search.searchBar
         tableView.register(UINib(nibName: "GitHubTableViewCell", bundle: nil),
@@ -32,13 +39,10 @@ class GitHubRepoViewController: UITableViewController {
     }
     
     private func setTableViewRx() {
-        let searchObservable = search.searchBar.rx
-            .text.orEmpty
-            .asObservable()
         
-        self.observable = GitHubObservable(searchResult: searchObservable)
-        
-        observable.searchResult?
+        observable.searchResult?.do(onNext: { [weak self] repoInfo in
+            self?.repoInfo = repoInfo
+        })
             .drive(tableView.rx.items(cellIdentifier: GitHubTableViewCell.idCell,
                                       cellType: GitHubTableViewCell.self)) { _, repo, cell in
                 
@@ -47,8 +51,21 @@ class GitHubRepoViewController: UITableViewController {
                 
             }.disposed(by: disposeBag)
         
-        tableView.rx.itemSelected.subscribe {
-            print($0)
+        
+        tableView.rx.itemSelected.map{ [weak self] indexPath in
+            self?.repoInfo?[indexPath.row]
+            
+        }.subscribe {[weak self] repo in
+            
+            guard let repoElement = repo.element,
+            let repo = repoElement else {return}
+            
+            self?.search.dismiss(animated: true, completion: nil)
+            
+            let repoInfoVC = RepoInfoViewController()
+            repoInfoVC.set(repoInfo: repo)
+            
+            self?.navigationController?.pushViewController(repoInfoVC, animated: true)
         }.disposed(by: disposeBag)
     }
 }

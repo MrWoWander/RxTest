@@ -11,6 +11,7 @@ import Foundation
 protocol RepoInfo {
     var nameRepo: String { get }
     var authorRepo: String { get }
+    var autorImage: String { get }
 }
 
 struct GitHubModel: Codable {
@@ -24,7 +25,7 @@ struct GitHubItemModel: Codable, RepoInfo {
     
     init(name: String) {
         self.name = name
-        self.owner = GitHubOwnerModel(login: "None")
+        self.owner = GitHubOwnerModel(login: "None", avatarUrl: "None")
     }
     
     var nameRepo: String {
@@ -38,8 +39,16 @@ struct GitHubItemModel: Codable, RepoInfo {
             return owner.login
         }
     }
+    
+    var autorImage: String {
+        get {
+            return owner.avatarUrl
+        }
+    }
+    
 }
 
 struct GitHubOwnerModel: Codable {
     var login: String
+    var avatarUrl: String
 }
