@@ -11,13 +11,13 @@ import RxCocoa
 
 class MainObservable {
     
-    var searchResult: Driver<[GitHubItemModel]>?
+    var searchResult: Driver<[RepoInfo]>?
     
     init(searchResult: Observable<String>) {
         self.searchResult = self.getSearch(searchResult: searchResult)
     }
     
-    private func getSearch(searchResult: Observable<String>) -> Driver<[GitHubItemModel]> {
+    private func getSearch(searchResult: Observable<String>) -> Driver<[RepoInfo]> {
         searchResult
             .debounce(.milliseconds(200), scheduler: MainScheduler.instance)
             .asDriver(onErrorJustReturn: "")
@@ -28,9 +28,9 @@ class MainObservable {
             }
     }
     
-    private func gitHubSearch(search: String) -> Single<[GitHubItemModel]> {
+    private func gitHubSearch(search: String) -> Single<[RepoInfo]> {
         
-        return Single<[GitHubItemModel]>.create { single in
+        return Single<[RepoInfo]>.create { single in
             
             guard let url = URL(string: "https://api.github.com/search/repositories?q=\(search)")
             else {
