@@ -19,7 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         
         let navigationVC = UINavigationController()
-        navigationVC.addChild(MainViewController())
+        navigationVC.addChild(GitHubRepoViewController())
         window.rootViewController = navigationVC
         
         self.window = window

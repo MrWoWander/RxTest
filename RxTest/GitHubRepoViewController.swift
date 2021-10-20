@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 
-class MainViewController: UITableViewController {
+class GitHubRepoViewController: UITableViewController {
     
     private var observable: MainObservable!
     
@@ -57,7 +57,7 @@ class MainViewController: UITableViewController {
     }
 }
 
-extension MainViewController {
+extension GitHubRepoViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 75
     }
