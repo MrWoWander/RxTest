@@ -109,17 +109,22 @@ class RepoInfoViewController: UIViewController {
         contentVerticalStackScrollViewLayout()
     }
     
-    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.willTransition(to: newCollection, with: coordinator)
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+       super.viewWillTransition(to: size, with: coordinator)
         
         guard let orientation = self.windowInterfaceOrientation else {return}
         
-        if orientation.isPortrait {
-            NSLayoutConstraint.deactivate(self.scrollViewLandscapeOrientation)
-            NSLayoutConstraint.activate(self.scrollViewPortraitOrientation)
-        } else {
-            NSLayoutConstraint.deactivate(self.scrollViewPortraitOrientation)
-            NSLayoutConstraint.activate(self.scrollViewLandscapeOrientation)
+        coordinator.animate {[weak self] _ in
+            
+            guard let self = self else { return }
+            
+            if orientation.isLandscape {
+                NSLayoutConstraint.deactivate(self.scrollViewLandscapeOrientation)
+                NSLayoutConstraint.activate(self.scrollViewPortraitOrientation)
+            } else {
+                NSLayoutConstraint.deactivate(self.scrollViewPortraitOrientation)
+                NSLayoutConstraint.activate(self.scrollViewLandscapeOrientation)
+            }
         }
     }
     
@@ -218,11 +223,11 @@ extension RepoInfoViewController {
         contentScrollView.trailingAnchor.constraint(equalTo: contentStack.trailingAnchor).isActive = true
         
         scrollViewPortraitOrientation = [
-            contentScrollView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.7)
+            contentScrollView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.7)
         ]
         
         scrollViewLandscapeOrientation = [
-            contentScrollView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.5)
+            contentScrollView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.6)
         ]
         
         guard let orientation = self.windowInterfaceOrientation else {return}
