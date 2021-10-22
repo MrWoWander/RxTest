@@ -18,10 +18,10 @@ class RepInfoObservable {
         self.repositoryInfo = rep
     }
     
-    public func getContent() -> Single<[RepContent]> {
+    public func getContent(path: String) -> Single<[RepContent]> {
         Single<[RepContent]>.create { single in
             
-            guard let url = URL(string: "https://api.github.com/repos/\(self.repositoryInfo.authorRepo)/\(self.repositoryInfo.nameRepo)/contents/")
+            guard let url = URL(string: "https://api.github.com/repos/\(self.repositoryInfo.authorRepo)/\(self.repositoryInfo.nameRepo)/contents/\(path)")
             else {
                 single(.failure(GitHubError.notValideURL))
                 return Disposables.create { }

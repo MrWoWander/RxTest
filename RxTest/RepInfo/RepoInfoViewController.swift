@@ -16,6 +16,10 @@ class RepoInfoViewController: UIViewController {
     
     private let dispose = DisposeBag()
     
+    private lazy var observable = RepInfoObservable(repoInfo)
+    
+    private var lastPath: String = ""
+    
     // MARK: UI property
     private var nameLabel: UILabel! {
         didSet {
@@ -104,7 +108,7 @@ class RepoInfoViewController: UIViewController {
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-       super.viewWillTransition(to: size, with: coordinator)
+        super.viewWillTransition(to: size, with: coordinator)
         
         guard let orientation = self.windowInterfaceOrientation else {return}
         
@@ -170,16 +174,50 @@ extension RepoInfoViewController {
         contentScrollView = UIScrollView()
         contentStackScrollView = UIStackView()
         
-        let observable = RepInfoObservable(repoInfo)
+        getContent()
+    }
+    
+    /// Getting the contents of the repository
+    func getContent(path: String = "") {
         
-        // Getting the contents of the repository
-        observable.getContent().subscribe(onSuccess: {[weak self] repContent in
-            repContent.forEach {
+        if !contentStackScrollView.arrangedSubviews.isEmpty {
+            contentStackScrollView.removeAllArrangedSubviews()
+        }
+        
+        observable.getContent(path: path).subscribe(onSuccess: {[weak self] repContent in
+            
+            guard let self = self else {return}
+            
+            let dirContent: [RepContent] = repContent.filter { $0.type == .directory}
+            let fileContent: [RepContent] = repContent.filter { $0.type == .file}
+            
+            dirContent.forEach { dirRepo in
+                let button = UIButton()
+                
+                button.setTitle(dirRepo.name, for: .normal)
+                button.contentHorizontalAlignment = .left
+                button.titleLabel?.numberOfLines = 2
+                button.setTitleColor(.systemBlue, for: .normal)
+                
+                button.rx.tap.subscribe(onNext:  {
+                    self.getContent(path: dirRepo.path)
+                }).disposed(by: self.dispose)
+                
+                self.contentStackScrollView.addArrangedSubview(button)
+                
+                if let font = button.titleLabel?.font {
+                    let height = dirRepo.name.height(width: self.contentStackScrollView.frame.width, font:font)
+                    
+                    button.heightAnchor.constraint(equalToConstant: height).isActive = true
+                }
+            }
+            
+            fileContent.forEach {
                 let contentLabel = UILabel()
-                contentLabel.text = String($0.name)
+                contentLabel.text = $0.name
                 contentLabel.numberOfLines = 2
                 
-                self?.contentStackScrollView.addArrangedSubview(contentLabel)
+                self.contentStackScrollView.addArrangedSubview(contentLabel)
             }
             
         }).disposed(by: dispose)

@@ -10,4 +10,11 @@ import Foundation
 
 struct RepContent: Codable {
     var name: String
+    var path: String
+    var type: TypeContent
+    
+    enum TypeContent: String, Codable {
+        case file = "file"
+        case directory = "dir"
+    }
 }

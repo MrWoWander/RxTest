@@ -17,6 +17,8 @@
 		6D5194AB271EC652006ACC60 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 6D5194AA271EC652006ACC60 /* RxCocoa */; };
 		6D5194AD271ECAAE006ACC60 /* GitHubModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D5194AC271ECAAE006ACC60 /* GitHubModel.swift */; };
 		6D5194AF271EE5BA006ACC60 /* GitHubObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D5194AE271EE5BA006ACC60 /* GitHubObservable.swift */; };
+		6D8B75FC2722EBB400404E6B /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D8B75FB2722EBB400404E6B /* StringExtension.swift */; };
+		6D8B75FE2722EBE500404E6B /* StackViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D8B75FD2722EBE500404E6B /* StackViewExtension.swift */; };
 		6DC57550272008F7009F3BA0 /* GitHubTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DC5754E272008F7009F3BA0 /* GitHubTableViewCell.swift */; };
 		6DC57551272008F7009F3BA0 /* GitHubTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6DC5754F272008F7009F3BA0 /* GitHubTableViewCell.xib */; };
 		6DC5755627200B97009F3BA0 /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 6DC5755527200B97009F3BA0 /* RxDataSources */; };
@@ -36,6 +38,8 @@
 		6D51949C271EB526006ACC60 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6D5194AC271ECAAE006ACC60 /* GitHubModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubModel.swift; sourceTree = "<group>"; };
 		6D5194AE271EE5BA006ACC60 /* GitHubObservable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubObservable.swift; sourceTree = "<group>"; };
+		6D8B75FB2722EBB400404E6B /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		6D8B75FD2722EBE500404E6B /* StackViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackViewExtension.swift; sourceTree = "<group>"; };
 		6DC5754E272008F7009F3BA0 /* GitHubTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubTableViewCell.swift; sourceTree = "<group>"; };
 		6DC5754F272008F7009F3BA0 /* GitHubTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GitHubTableViewCell.xib; sourceTree = "<group>"; };
 		6DC5755827201C7A009F3BA0 /* RepoInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoInfoViewController.swift; sourceTree = "<group>"; };
@@ -86,7 +90,7 @@
 				6D519497271EB526006ACC60 /* Assets.xcassets */,
 				6D519499271EB526006ACC60 /* LaunchScreen.storyboard */,
 				6D51949C271EB526006ACC60 /* Info.plist */,
-				6DC5755A27203EDC009F3BA0 /* WebImageView.swift */,
+				6D8B75FA2722EBA300404E6B /* Helper */,
 			);
 			path = RxTest;
 			sourceTree = "<group>";
@@ -96,6 +100,16 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6D8B75FA2722EBA300404E6B /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				6DC5755A27203EDC009F3BA0 /* WebImageView.swift */,
+				6D8B75FB2722EBB400404E6B /* StringExtension.swift */,
+				6D8B75FD2722EBE500404E6B /* StackViewExtension.swift */,
+			);
+			path = Helper;
 			sourceTree = "<group>";
 		};
 		6DC5755327200901009F3BA0 /* Cell */ = {
@@ -209,6 +223,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D8B75FC2722EBB400404E6B /* StringExtension.swift in Sources */,
 				6D5194AD271ECAAE006ACC60 /* GitHubModel.swift in Sources */,
 				6DC5755B27203EDC009F3BA0 /* WebImageView.swift in Sources */,
 				6DC5755E27205266009F3BA0 /* RepInfoObservable.swift in Sources */,
@@ -217,6 +232,7 @@
 				6D51948F271EB525006ACC60 /* AppDelegate.swift in Sources */,
 				6D519491271EB525006ACC60 /* SceneDelegate.swift in Sources */,
 				6DC575602720542C009F3BA0 /* RepInfoModel.swift in Sources */,
+				6D8B75FE2722EBE500404E6B /* StackViewExtension.swift in Sources */,
 				6D5194AF271EE5BA006ACC60 /* GitHubObservable.swift in Sources */,
 				6DC5755927201C7A009F3BA0 /* RepoInfoViewController.swift in Sources */,
 			);
