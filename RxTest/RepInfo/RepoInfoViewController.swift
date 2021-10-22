@@ -16,11 +16,6 @@ class RepoInfoViewController: UIViewController {
     
     private let dispose = DisposeBag()
     
-    private var windowInterfaceOrientation: UIInterfaceOrientation? {
-        let scene = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
-        return scene?.window?.windowScene?.interfaceOrientation
-    }
-    
     // MARK: UI property
     private var nameLabel: UILabel! {
         didSet {
@@ -80,7 +75,6 @@ class RepoInfoViewController: UIViewController {
         didSet {
             contentStackScrollView.axis = .vertical
             contentStackScrollView.spacing = 10
-            
             contentStackScrollView.translatesAutoresizingMaskIntoConstraints = false
             
             contentScrollView.addSubview(contentStackScrollView)
@@ -194,6 +188,12 @@ extension RepoInfoViewController {
 
 // MARK: View contraint`s
 extension RepoInfoViewController {
+    
+    /// Getting device orientation
+    private var windowInterfaceOrientation: UIInterfaceOrientation? {
+        let scene = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
+        return scene?.window?.windowScene?.interfaceOrientation
+    }
     
     private func nameLabelLayout() {
         nameLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
