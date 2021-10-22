@@ -63,7 +63,7 @@ class GitHubRepoViewController: UITableViewController {
             self?.search.dismiss(animated: true, completion: nil)
             
             let repoInfoVC = RepoInfoViewController()
-            repoInfoVC.set(repoInfo: repo)
+            repoInfoVC.setup(repoInfo: repo)
             
             self?.navigationController?.pushViewController(repoInfoVC, animated: true)
         }.disposed(by: disposeBag)

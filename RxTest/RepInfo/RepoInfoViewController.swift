@@ -11,11 +11,18 @@ import RxCocoa
 
 class RepoInfoViewController: UIViewController {
     
-    var repoInfo: RepoInfo!
+    // MARK: Property
+    private var repoInfo: RepoInfo!
     
-    let dispose = DisposeBag()
+    private let dispose = DisposeBag()
     
-    var nameLabel: UILabel! {
+    private var windowInterfaceOrientation: UIInterfaceOrientation? {
+        let scene = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
+        return scene?.window?.windowScene?.interfaceOrientation
+    }
+    
+    // MARK: UI property
+    private var nameLabel: UILabel! {
         didSet {
             nameLabel.text = repoInfo.nameRepo
             nameLabel.textAlignment = .center
@@ -25,7 +32,8 @@ class RepoInfoViewController: UIViewController {
             self.view.addSubview(nameLabel)
         }
     }
-    var authorLabel: UILabel! {
+    
+    private var authorLabel: UILabel! {
         didSet {
             authorLabel.text = repoInfo.authorRepo
             authorLabel.textAlignment = .center
@@ -34,9 +42,9 @@ class RepoInfoViewController: UIViewController {
         }
     }
     
-    var authorImage: WebImageView!
+    private var authorImage: WebImageView!
     
-    var authorStack: UIStackView! {
+    private var authorStack: UIStackView! {
         didSet {
             authorStack.axis = .horizontal
             authorStack.alignment = .center
@@ -48,7 +56,7 @@ class RepoInfoViewController: UIViewController {
         }
     }
     
-    var contentStack: UIStackView! {
+    private var contentStack: UIStackView! {
         didSet {
             contentStack.axis = .horizontal
             contentStack.alignment = .top
@@ -59,7 +67,7 @@ class RepoInfoViewController: UIViewController {
         }
     }
     
-    var contentScrollView: UIScrollView! {
+    private var contentScrollView: UIScrollView! {
         didSet {
             contentScrollView.showsHorizontalScrollIndicator = false
             contentScrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -68,7 +76,7 @@ class RepoInfoViewController: UIViewController {
         }
     }
     
-    var contentStackScrollView: UIStackView! {
+    private var contentStackScrollView: UIStackView! {
         didSet {
             contentStackScrollView.axis = .vertical
             contentStackScrollView.spacing = 10
@@ -79,14 +87,10 @@ class RepoInfoViewController: UIViewController {
         }
     }
     
-    override func viewDidLayoutSubviews() {
-        nameLabelLayout()
-        authorStackLayout()
-        
-        contentStackLayout()
-        contentScrollViewLayout()
-        contentVerticalStackScrollViewLayout()
-    }
+    // MARK: UI constraint property
+    private var scrollViewPortraitOrientation: [NSLayoutConstraint]!
+    private var scrollViewLandscapeOrientation: [NSLayoutConstraint]!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,12 +99,38 @@ class RepoInfoViewController: UIViewController {
         
         setTopBar()
         setContentStack()
+        
+        // Set constraint
+        nameLabelLayout()
+        authorStackLayout()
+        
+        contentStackLayout()
+        contentScrollViewLayout()
+        contentVerticalStackScrollViewLayout()
     }
     
-    func set(repoInfo: RepoInfo) {
+    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.willTransition(to: newCollection, with: coordinator)
+        
+        guard let orientation = self.windowInterfaceOrientation else {return}
+        
+        if orientation.isPortrait {
+            NSLayoutConstraint.deactivate(self.scrollViewLandscapeOrientation)
+            NSLayoutConstraint.activate(self.scrollViewPortraitOrientation)
+        } else {
+            NSLayoutConstraint.deactivate(self.scrollViewPortraitOrientation)
+            NSLayoutConstraint.activate(self.scrollViewLandscapeOrientation)
+        }
+    }
+    
+    /// Transferring data from another controller
+    func setup(repoInfo: RepoInfo) {
         self.repoInfo = repoInfo
     }
-    
+}
+
+// MARK: Customizing UI elements
+extension RepoInfoViewController {
     func setTopBar() {
         nameLabel = UILabel()
         authorLabel = UILabel()
@@ -143,6 +173,7 @@ class RepoInfoViewController: UIViewController {
         
         let observable = RepInfoObservable(repoInfo)
         
+        // Getting the contents of the repository
         observable.getContent().subscribe(onSuccess: {[weak self] repContent in
             repContent.forEach {
                 let contentLabel = UILabel()
@@ -183,8 +214,24 @@ extension RepoInfoViewController {
     }
     
     private func contentScrollViewLayout() {
+        
         contentScrollView.trailingAnchor.constraint(equalTo: contentStack.trailingAnchor).isActive = true
-        contentScrollView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.7).isActive = true
+        
+        scrollViewPortraitOrientation = [
+            contentScrollView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.7)
+        ]
+        
+        scrollViewLandscapeOrientation = [
+            contentScrollView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.5)
+        ]
+        
+        guard let orientation = self.windowInterfaceOrientation else {return}
+        
+        if orientation.isPortrait {
+            NSLayoutConstraint.activate(self.scrollViewPortraitOrientation)
+        } else {
+            NSLayoutConstraint.activate(self.scrollViewLandscapeOrientation)
+        }
     }
     
     private func contentVerticalStackScrollViewLayout() {

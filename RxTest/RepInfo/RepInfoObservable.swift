@@ -5,10 +5,9 @@
 //  Created by Mikhail Ivanov on 20.10.2021.
 //
 
-import UIKit
+import Foundation
 import RxSwift
 import RxCocoa
-
 
 class RepInfoObservable {
     
