@@ -179,52 +179,60 @@ extension RepoInfoViewController {
     
     /// Getting the contents of the repository
     func getContent(path: String = "") {
-        
-        if !contentStackScrollView.arrangedSubviews.isEmpty {
-            contentStackScrollView.removeAllArrangedSubviews()
-        }
-        
         observable.getContent(path: path).subscribe(onSuccess: {[weak self] repContent in
             
             guard let self = self else {return}
             
+            if !self.contentStackScrollView.arrangedSubviews.isEmpty {
+                self.contentStackScrollView.removeAllArrangedSubviews()
+            }
+            
             let dirContent: [RepContent] = repContent.filter { $0.type == .directory}
             let fileContent: [RepContent] = repContent.filter { $0.type == .file}
             
-            dirContent.forEach { dirRepo in
-                let button = UIButton()
-                
-                button.setTitle(dirRepo.name, for: .normal)
-                button.contentHorizontalAlignment = .left
-                button.titleLabel?.numberOfLines = 2
-                button.setTitleColor(.systemBlue, for: .normal)
-                
-                button.rx.tap.subscribe(onNext:  {
-                    self.getContent(path: dirRepo.path)
-                }).disposed(by: self.dispose)
-                
-                self.contentStackScrollView.addArrangedSubview(button)
-                
-                if let font = button.titleLabel?.font {
-                    let height = dirRepo.name.height(width: self.contentStackScrollView.frame.width, font:font)
-                    
-                    button.heightAnchor.constraint(equalToConstant: height).isActive = true
-                }
-            }
-            
-            fileContent.forEach {
-                let contentLabel = UILabel()
-                contentLabel.text = $0.name
-                contentLabel.numberOfLines = 2
-                
-                self.contentStackScrollView.addArrangedSubview(contentLabel)
-            }
+            self.getDirContent(dirContent)
+            self.getFileContent(fileContent)
             
         }).disposed(by: dispose)
     }
+    
+    /// Creating UI elements for repository directories
+    private func getDirContent(_ dirContent: [RepContent]) {
+        dirContent.forEach { dirRepo in
+            let button = UIButton()
+            
+            button.setTitle(dirRepo.name, for: .normal)
+            button.contentHorizontalAlignment = .left
+            button.titleLabel?.numberOfLines = 2
+            button.setTitleColor(.systemBlue, for: .normal)
+            
+            button.rx.tap.subscribe(onNext:  {[weak self] in
+                self?.getContent(path: dirRepo.path)
+            }).disposed(by: dispose)
+            
+            contentStackScrollView.addArrangedSubview(button)
+            
+            if let font = button.titleLabel?.font {
+                let height = dirRepo.name.height(width: contentStackScrollView.frame.width, font:font)
+                
+                button.heightAnchor.constraint(equalToConstant: height).isActive = true
+            }
+        }
+    }
+    
+    /// Creating UI elements for repository files
+    private func getFileContent(_ fileContent: [RepContent]) {
+        fileContent.forEach {
+            let contentLabel = UILabel()
+            contentLabel.text = $0.name
+            contentLabel.numberOfLines = 2
+            
+            contentStackScrollView.addArrangedSubview(contentLabel)
+        }
+    }
 }
 
-// MARK: View contraint`s
+// MARK: Сontraint`s
 extension RepoInfoViewController {
     
     /// Getting device orientation
