@@ -301,7 +301,7 @@ extension RepoInfoViewController {
         contentScrollView.trailingAnchor.constraint(equalTo: contentStack.trailingAnchor).isActive = true
         
         scrollViewPortraitOrientation = [
-            contentScrollView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.7)
+            contentScrollView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.8)
         ]
         
         scrollViewLandscapeOrientation = [

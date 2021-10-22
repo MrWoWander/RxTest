@@ -36,6 +36,18 @@ class GitHubRepoViewController: UITableViewController {
         tableView.dataSource = nil
         
         setTableViewRx()
+        
+        // MARK: Warning alert
+        
+        let alert =  UIAlertController(title: "‼️ ВНИМАНИЕ ‼️",
+                                       message: "Данный репозиторий работает с API GitHub без токена пользователя. Из-за этого нельзя делать много запросов сразу. Старайтесь не спешить 😃",
+                                       preferredStyle: .alert)
+         
+         let alertOk = UIAlertAction(title: "ОК", style: .default)
+        
+         alert.addAction(alertOk)
+         
+         present(alert, animated: true, completion: nil)
     }
     
     private func setTableViewRx() {
