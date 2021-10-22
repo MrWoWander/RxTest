@@ -18,7 +18,7 @@ class RepoInfoViewController: UIViewController {
     
     private lazy var observable = RepInfoObservable(repoInfo)
     
-    private var lastPath: String = ""
+    private var path: [String] = []
     
     // MARK: UI property
     private var nameLabel: UILabel! {
@@ -85,6 +85,13 @@ class RepoInfoViewController: UIViewController {
         }
     }
     
+    private var contentBackButton: UIButton! {
+        didSet {
+            contentBackButton.setTitleColor(.systemBlue, for: .normal)
+            contentBackButton.setTitle("<- Back", for: .normal)
+        }
+    }
+    
     // MARK: UI constraint property
     private var scrollViewPortraitOrientation: [NSLayoutConstraint]!
     private var scrollViewLandscapeOrientation: [NSLayoutConstraint]!
@@ -96,7 +103,7 @@ class RepoInfoViewController: UIViewController {
         self.view.backgroundColor = .systemBackground
         
         setTopBar()
-        setContentStack()
+        setContentsStack()
         
         // Set constraint
         nameLabelLayout()
@@ -134,7 +141,7 @@ class RepoInfoViewController: UIViewController {
 
 // MARK: Customizing UI elements
 extension RepoInfoViewController {
-    func setTopBar() {
+    private func setTopBar() {
         nameLabel = UILabel()
         authorLabel = UILabel()
         authorImage = WebImageView()
@@ -160,16 +167,37 @@ extension RepoInfoViewController {
         activityIndicator.startAnimating()
     }
     
-    func setContentStack() {
+    private func setContentsStack() {
         self.contentStack = UIStackView()
+        
+        let verticalStack = UIStackView()
+        verticalStack.axis = .vertical
+        verticalStack.alignment = .trailing
+        
+        contentStack.addArrangedSubview(verticalStack)
+        verticalStack.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.3).isActive = true
         
         let contentLabel = UILabel()
         contentLabel.text = "Content:"
         contentLabel.textAlignment = .right
         contentLabel.font = .preferredFont(forTextStyle: .title3)
         
-        contentStack.addArrangedSubview(contentLabel)
-        contentLabel.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.3).isActive = true
+        verticalStack.addArrangedSubview(contentLabel)
+        
+        contentBackButton = UIButton()
+        verticalStack.addArrangedSubview(contentBackButton)
+        
+        contentBackButton.rx.tap.subscribe {[weak self] _ in
+            guard let self = self else {return}
+            self.path.removeLast()
+            
+            if self.path.isEmpty {
+                self.getContent()
+            } else {
+                self.getContent(path: self.path.last!)
+            }
+            
+        }.disposed(by: dispose)
         
         contentScrollView = UIScrollView()
         contentStackScrollView = UIStackView()
@@ -178,7 +206,10 @@ extension RepoInfoViewController {
     }
     
     /// Getting the contents of the repository
-    func getContent(path: String = "") {
+    private func getContent(path: String = "") {
+        
+        contentBackButton.isHidden = path.isEmpty
+        
         observable.getContent(path: path).subscribe(onSuccess: {[weak self] repContent in
             
             guard let self = self else {return}
@@ -207,6 +238,7 @@ extension RepoInfoViewController {
             button.setTitleColor(.systemBlue, for: .normal)
             
             button.rx.tap.subscribe(onNext:  {[weak self] in
+                self?.path.append(dirRepo.path)
                 self?.getContent(path: dirRepo.path)
             }).disposed(by: dispose)
             
