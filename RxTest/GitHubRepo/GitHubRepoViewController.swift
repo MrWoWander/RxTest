@@ -21,7 +21,7 @@ class GitHubRepoViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "GitHub repository"
+        self.title = NSLocalizedString("GitHubRepoViewController_Title", comment: "")
         
         let searchObservable = search.searchBar.rx
             .text.orEmpty
@@ -39,16 +39,21 @@ class GitHubRepoViewController: UITableViewController {
         
         // MARK: Warning alert
         
-        let alert =  UIAlertController(title: "‼️ ВНИМАНИЕ ‼️",
-                                       message: "Данный репозиторий работает с API GitHub без токена пользователя. Из-за этого нельзя делать много запросов сразу. Старайтесь не спешить 😃",
+        let alertTitle = NSLocalizedString("Alert_Title", comment: "")
+        let alertMessage = NSLocalizedString("Alert_Message", comment: "")
+        
+        let alert =  UIAlertController(title: "‼️ \(alertTitle) ‼️",
+                                       message: alertMessage + " 😃",
                                        preferredStyle: .alert)
          
          let alertOk = UIAlertAction(title: "ОК", style: .default)
         
          alert.addAction(alertOk)
-         
-         present(alert, animated: true, completion: nil)
+        
+        self.navigationController?.present(alert, animated: true, completion: nil)
     }
+    
+    
     
     private func setTableViewRx() {
         

@@ -26,6 +26,7 @@
 		6DC5755B27203EDC009F3BA0 /* WebImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DC5755A27203EDC009F3BA0 /* WebImageView.swift */; };
 		6DC5755E27205266009F3BA0 /* RepInfoObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DC5755D27205266009F3BA0 /* RepInfoObservable.swift */; };
 		6DC575602720542C009F3BA0 /* RepInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DC5755F2720542C009F3BA0 /* RepInfoModel.swift */; };
+		6DF7C6E02726B2FC00F6462C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6DF7C6E22726B2FC00F6462C /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,9 @@
 		6DC5755A27203EDC009F3BA0 /* WebImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebImageView.swift; sourceTree = "<group>"; };
 		6DC5755D27205266009F3BA0 /* RepInfoObservable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepInfoObservable.swift; sourceTree = "<group>"; };
 		6DC5755F2720542C009F3BA0 /* RepInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepInfoModel.swift; sourceTree = "<group>"; };
+		6DD386FB2726AF1B00D76150 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		6DF7C6E12726B2FC00F6462C /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		6DF7C6E32726B2FD00F6462C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +132,7 @@
 				6D5194AC271ECAAE006ACC60 /* GitHubModel.swift */,
 				6D5194AE271EE5BA006ACC60 /* GitHubObservable.swift */,
 				6DC5755327200901009F3BA0 /* Cell */,
+				6DF7C6E22726B2FC00F6462C /* Localizable.strings */,
 			);
 			path = GitHubRepo;
 			sourceTree = "<group>";
@@ -175,6 +180,9 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
+				KnownAssetTags = (
+					New,
+				);
 				LastSwiftUpdateCheck = 1300;
 				LastUpgradeCheck = 1300;
 				TargetAttributes = {
@@ -190,6 +198,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ru,
 			);
 			mainGroup = 6D519482271EB525006ACC60;
 			packageReferences = (
@@ -211,6 +220,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6D51949B271EB526006ACC60 /* LaunchScreen.storyboard in Resources */,
+				6DF7C6E02726B2FC00F6462C /* Localizable.strings in Resources */,
 				6DC57551272008F7009F3BA0 /* GitHubTableViewCell.xib in Resources */,
 				6D519498271EB526006ACC60 /* Assets.xcassets in Resources */,
 			);
@@ -245,8 +255,18 @@
 			isa = PBXVariantGroup;
 			children = (
 				6D51949A271EB526006ACC60 /* Base */,
+				6DD386FB2726AF1B00D76150 /* ru */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		6DF7C6E22726B2FC00F6462C /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6DF7C6E12726B2FC00F6462C /* ru */,
+				6DF7C6E32726B2FD00F6462C /* en */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -256,6 +276,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -317,6 +338,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";

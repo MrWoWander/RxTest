@@ -1,0 +1,19 @@
+/* 
+  Localization.strings
+  RxTest
+
+  Created by Mikhail Ivanov on 25.10.2021.
+  
+*/
+
+"Alert_Title" = "ATTENTION";
+
+"Back_button" = "Back";
+
+"Content_Label" = "Content";
+
+"Error_Cell" = "Something is wrong";
+
+"GitHubRepoViewController_Title" = "GitHub repository";
+
+"Alert_Message" = "This repository works with the GitHub API without a user token. Because of this, you cannot make many requests at once. Try not to rush";

@@ -88,7 +88,7 @@ class RepoInfoViewController: UIViewController {
     private var contentBackButton: UIButton! {
         didSet {
             contentBackButton.setTitleColor(.systemBlue, for: .normal)
-            contentBackButton.setTitle("<- Back", for: .normal)
+            contentBackButton.setTitle("<- \(NSLocalizedString("Back_button", comment: ""))", for: .normal)
         }
     }
     
@@ -178,7 +178,7 @@ extension RepoInfoViewController {
         verticalStack.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.3).isActive = true
         
         let contentLabel = UILabel()
-        contentLabel.text = "Content:"
+        contentLabel.text = "\(NSLocalizedString("Content_Label", comment: "")):"
         contentLabel.textAlignment = .right
         contentLabel.font = .preferredFont(forTextStyle: .title3)
         

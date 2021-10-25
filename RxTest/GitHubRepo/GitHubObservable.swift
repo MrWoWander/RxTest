@@ -24,7 +24,7 @@ class GitHubObservable {
             .filter { !$0.isEmpty }
             .distinctUntilChanged()
             .flatMapLatest {[unowned self] text in
-                self.gitHubSearch(search: text).asDriver(onErrorJustReturn: [GitHubItemModel(name: "Что-то не так")])
+                self.gitHubSearch(search: text).asDriver(onErrorJustReturn: [GitHubItemModel(name: NSLocalizedString("Error_Cell", comment: ""))])
             }
     }
     

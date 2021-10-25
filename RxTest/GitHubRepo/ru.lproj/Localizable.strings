@@ -1,0 +1,19 @@
+/* 
+  Localization.strings
+  RxTest
+
+  Created by Mikhail Ivanov on 25.10.2021.
+  
+*/
+
+"Alert_Title" = "ВНИМАНИЕ";
+
+"Back_button" = "Назад";
+
+"Content_Label" = "Контент";
+
+"Error_Cell" = "Что-то не так";
+
+"GitHubRepoViewController_Title" = "GitHub репозитории";
+
+"Alert_Message" = "Данный репозиторий работает с API GitHub без токена пользователя. Из-за этого нельзя делать много запросов сразу. Старайтесь не спешить";
